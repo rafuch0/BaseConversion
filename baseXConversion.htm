@@ -1,0 +1,55 @@
+<html><head></head><body>
+
+<script>
+
+function baseXencode(id, alphabet)
+{
+	var base = alphabet.length
+	var str = ''
+
+	if(id == 0)
+	{
+		return alphabet[0]
+	}
+
+	while (id > 0)
+	{
+		str = str + alphabet[id % base]
+		id = Math.floor(id / base)
+	}
+
+	return str.split('').reverse().join('')
+}
+
+function baseXdecode(str, alphabet)
+{
+	var base = alphabet.length
+	var length = str.length - 1
+	var count = 0
+
+	for(var i=0;i <= length;i++)
+	{
+		count = count + alphabet.indexOf(str[i]) * Math.pow(base, length - i);
+	}
+
+	return count
+}
+
+var alphabet;
+//alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+alphabet = '`~!@#$%^&*()-_=+[{]}\|;:\'",<.>/?';
+//alphabet = '0123456789><+-=/*^%{}[];:\'".?\\';
+//alphabet = '0123456789ABCDEF'
+//alphabet = '\\?."\':;][}{%^*/=-+<>9876543210';
+//alphabet = 'derpfat'
+//alphabet = alphabet.split('').sort(function(){return 0.5 - Math.random();}).join('');
+//for(var i = 9999999999999998; i < 9999999999999999; i++)
+for(var i = 10000000000; i < 10000000001; i++)
+{
+	var encoded = baseXencode(i, alphabet);
+	document.write(i+" = "+encoded.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+" = "+baseXdecode(encoded, alphabet)+'<br>');
+}
+
+</script>
+
+</body></html>
